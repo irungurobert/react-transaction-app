@@ -12,17 +12,44 @@ useEffect(() => {
   .then(res => res.json())
   .then(data => setTransactions(data));
 },[])
-console.log(transactions);
+
+useEffect(() => {
+  console.log("Updated transactions:", transactions);
+}, [transactions]);
+
+
+async function handleDelete(id){
+  try {
+    const updatedData = transactions.filter(data => data.id !== id);
+    setTransactions(updatedData)
+  } catch (error) {
+
+    console.error('Error deleting transactions:', error);
+    
+  }
+}
+
+function updateParentState(newState){
+  console.log(newState);
+  setTransactions(newState)
+  console.log(transactions);
+}
   return (
     <>
+    {console.log(transactions)}
     <section className='addSection'>
-      <Add></Add>
+      <Add
+      onUpdateState = {updateParentState}
+     transactions={transactions} 
+     setTransactions={setTransactions}
+      ></Add>
     </section>
     <section>
       <Filter></Filter>
     </section>
     <main>
       <Table
+      handleDelete={handleDelete}
       transactions={transactions}
       ></Table>
     </main>

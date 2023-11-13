@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-function Table({transactions}) {
+function Table({transactions,handleDelete}) {
     return ( 
         <div className="contain-table">
       <table className="striped-table">
@@ -27,6 +27,7 @@ function Table({transactions}) {
                 <td>{transaction.date}</td>
                 <td className="text-left">
                   <button
+                    onClick={() => handleDelete(transaction.id)}
                     className="button muted-button"
                   >
                     Delete

@@ -59,6 +59,10 @@ margin: 1rem 0 0.5rem;
   height: 35px;
   font-size: 1.1rem;
 }
+.addBtn:hover{
+  color:rgba(0, 0, 255, 0.802);
+  background-color: white;
+}
 
 select{
   /* -webkit-appearance: none;
