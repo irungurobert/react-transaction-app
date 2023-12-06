@@ -1,24 +1,30 @@
 import React, { Component, useState } from 'react';
 
-function Add({transactions,setTransactions,onUpdateState}) {
+function Add({transactions,onUpdateState}) {
         const [description,setDescription] = useState('');
         const [amount,setAmount] = useState('');
         const [date,setDate] = useState('');
         const [category,setCategory] = useState('');
+        const [id,setId] = useState('');
 
         function handleAdd(e){
                 e.preventDefault();
                 const newTransaction = {
-                        id: 15,
+                        id,
                         date,
                         description,
                         category,
                         amount,
                 };
 
-                transactions.push(newTransaction);
-                console.log(transactions);
-                onUpdateState(transactions);
+                const updatedTransactions = [...transactions,newTransaction];
+                onUpdateState(updatedTransactions);
+
+                setAmount('')
+                setCategory('')
+                setDate('')
+                setDescription('')
+                setId('')
 
         }
     return (
@@ -28,6 +34,13 @@ function Add({transactions,setTransactions,onUpdateState}) {
             
                         <label htmlFor="transaction">Description</label>
                         <input type="text" id="transaction" name="transaction" value={description} onChange={e => setDescription(e.target.value)}></input>
+                    
+                    
+                </div>
+                <div className="id__">
+                
+                        <label htmlFor="id">Id</label>
+                        <input type="text" id="id" name="id" value={id} onChange={e => setId(e.target.value)}></input>
                     
                     
                 </div>

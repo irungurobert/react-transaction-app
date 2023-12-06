@@ -8,14 +8,20 @@ function App() {
 const [transactions,setTransactions] = useState([]);
 
 useEffect(() => {
-  fetch(' http://localhost:3000/transactions')
-  .then(res => res.json())
-  .then(data => setTransactions(data));
+  getTransactions();
 },[])
 
 useEffect(() => {
   console.log("Updated transactions:", transactions);
 }, [transactions]);
+
+function getTransactions(){
+  fetch(' http://localhost:3000/transactions')
+  .then(res => res.json())
+  .then(data => setTransactions(data));
+  
+}
+
 
 
 async function handleDelete(id){
@@ -36,7 +42,6 @@ function updateParentState(newState){
 }
   return (
     <>
-    {console.log(transactions)}
     <section className='addSection'>
       <Add
       onUpdateState = {updateParentState}
@@ -45,7 +50,11 @@ function updateParentState(newState){
       ></Add>
     </section>
     <section>
-      <Filter></Filter>
+      <Filter 
+      transactions = {transactions}
+      setTransactions = {setTransactions}
+      getTransactions = {getTransactions}
+      ></Filter>
     </section>
     <main>
       <Table
