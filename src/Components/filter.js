@@ -1,30 +1,40 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 
-function Filter() {
-    return ( 
-        <form>
+function Filter({transactions,getTransactions,setTransactions}) {
+
+    const [category,setCategory] = useState('');
+
+    function handleFilter(category){
+        const filteredTransactions = transactions.filter(data => data.category == category)
+        setTransactions(filteredTransactions)
+        setCategory('')
+      }
+      
+    return (
+        <>
+
+        <form onSubmit={e => e.preventDefault()}>
         <div className="filterContainer">
-            <div className="expenseName__">
-            
-                <label htmlFor="expensename">Description</label>
-                <input type="text" id="transaction" name="expensename"></input>
-            </div>
 
             <div className="category__">
                 
                 <label htmlFor="category">Category</label>
-                <select>
-                    <option value="food">Food</option>
-                    <option value="clothing">Clothing</option>
-                    <option value="hobby">Hobby</option>
-                    <option value="sherehe">Sherehe</option>
+                <select value={category} onChange={e => setCategory(e.target.value)}>
+                <option value=""></option>
+                            <option value="Food">Food</option>
+                            <option value="Fashion">Fashion</option>
+                            <option value="Income">Income</option>
+                            <option value="Gift">Gift</option>
+                            <option value="Transportation">Transportation</option>
+                            <option value="Entertainment">Entertainment</option>
+                            <option value="Housing">Housing</option>
                 </select>
                 
-                <button className="filterBtn">Filter</button>
+                <button onClick={() => handleFilter(category)} className="filterBtn">Filter</button>
+                <button onClick={getTransactions} className="resetBtn">Reset</button>
             </div>
             
             <div className="resetContainer" >
-                <button className="resetBtn">Reset</button>
                 
             </div>
 
@@ -32,6 +42,7 @@ function Filter() {
         </div>
 
     </form>
+        </> 
      );
 }
 
